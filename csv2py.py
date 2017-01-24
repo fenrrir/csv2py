@@ -72,13 +72,8 @@ class CSVLoader(Loader):
 
 class Field(object):
 
-    def __init__(self, target_attribute, index=None, source_attribute=None, required=True, validators=None, type=str):
-        if not (index or source_attribute):
-            raise ValueError('index or source_name must be defined')
-        if index and source_attribute:
-            raise ValueError('index and source_name defined')
-
-        self.item = index if index else source_attribute
+    def __init__(self, column, target_attribute, required=True, validators=None, type=str):
+        self.column = column
         self.target_attribute = target_attribute
         self.required = required
         self.type = type
@@ -86,7 +81,7 @@ class Field(object):
 
     def get_value(self, loader, line):
         try:
-            value = line[self.item]
+            value = line[self.column]
         except (IndexError, KeyError) as error:
             if self.required:
                 raise DataFormat('field is missing')
