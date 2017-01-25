@@ -72,12 +72,13 @@ class CSVLoader(Loader):
 
 class Field(object):
 
-    def __init__(self, column, target_attribute, required=True, validators=None, type=str):
+    def __init__(self, column, target_attribute, required=True, validators=None, type=str, null=False):
         self.column = column
         self.target_attribute = target_attribute
         self.required = required
         self.type = type
         self.validators = validators if validators else []
+        self.null = null
 
     def get_value(self, loader, line):
         try:
@@ -89,6 +90,9 @@ class Field(object):
                 value = ''
 
         value = self.clean(loader, value)
+
+        if self.null and value is None:
+            return None
 
         return self.type(value)
 
