@@ -52,7 +52,7 @@ class CSVLoader(Loader):
 
     def run(self):
         self.before_loader()
-        with codecs.open(self.file, encoding=self.encoding) as f:
+        with self.open(self.file, encoding=self.encoding) as f:
             reader = self.reader_class(f, delimiter=self.delimiter)
             for line in reader:
                 context = dict(self.initial_context)
@@ -68,6 +68,9 @@ class CSVLoader(Loader):
 
     def after_line_loader(self, line, context):
         pass
+
+    def open(self, filename, encoding):
+        return codecs.open(filename, encoding=encoding)
 
 
 class Field(object):
