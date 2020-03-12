@@ -23,12 +23,15 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.7',
         'Framework :: Django',
         'Framework :: Django :: 1.7',
         'Framework :: Django :: 1.9',
+        'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.0',
     ],
     keywords='python csv django',
     py_modules=['csv2py'],
-    install_requires=['six==1.10.0'],
+    install_requires=['six>=1.10.0'],
 )
 
