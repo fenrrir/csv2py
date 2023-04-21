@@ -20,6 +20,43 @@ You can install csv2py using pip:
 pip install csv2py
 ```
 
+## How to use
+
+Consider the scenario below:
+
+```python
+# my_project/my_app
+from django.db import models
+
+
+class Question(models.Model):
+    number = models.IntegerField(...)
+
+instance = Question(number=1)
+```
+
+1. Create a new file for your loaders classes. For example `loaders.py`
+
+```python
+# my_app/loaders.py
+from csv2py import DjangoCSVLineLoader, Field
+from . import models
+
+class QuestionLoader(DjangoCSVLineLoader):
+    model = models.Question
+    context_name = "question"
+    fields = [Field(column="NUMBER", target_attribute="number")]
+
+```
+
+2. Create a Django view to load the file into your loaders
+
+```python
+loader = QuestionLoader(file, encoding="UTF-8-sig", delimiter=",")
+loader.run()
+```
+
+
 ## Contributing
 
 Contributions to csv2py are welcome and appreciated! Please see the CONTRIBUTING.md file for more information.
