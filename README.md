@@ -49,7 +49,7 @@ class QuestionLoader(DjangoCSVLineLoader):
 
 ```
 
-2. Create a Django view to load the file into your loaders
+2. Create a Django view or a Django-rest-framework viewset or a Celery task to load the file into your loaders
 
 ```python
 loader = QuestionLoader(file, encoding="UTF-8-sig", delimiter=",")
